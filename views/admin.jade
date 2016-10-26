@@ -9,14 +9,14 @@ block content
         hr
         .row
           .row
-            .col-md-5 Attendance Reports of Events
+            #report-desc.col-md-5 Attendance Reports 
             .col-md-7
               .row
-                form#login-form(action='/seach', method='post', role='form', style='display: block;')
+                form#login-form(action='', method='', role='form', style='display: block;')
                   .form-group.col-md-8
                     input#search.form-control(type='text', placeholder='Event')
                   .form-group.col-md-4
-                    input#login-submit.form-control.btn.btn-primary(type='submit', name='search', tabindex='4', value='Search')
+                    input#btn-view-report.form-control.btn.btn-primary(type='button', name='view', tabindex='4', value='View Report')
           .panel.panel-primary.filterable
             .panel-heading
               h3.panel-title Attendance Report
@@ -74,7 +74,7 @@ block content
                 button.btn.btn-default.btn-xs.btn-filter
                   span.glyphicon.glyphicon-filter
                   |  Filter
-            table.table
+            table#event-table.table
               thead
                 tr.filters
                   th

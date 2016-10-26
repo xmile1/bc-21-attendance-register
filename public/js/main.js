@@ -121,11 +121,13 @@ $('#register-form-link').click(function(e) {
 
 // Admmin Nav tabs
 $('#events').click(function(e) {
+      
         $("#viewevent").delay(100).fadeIn(100);
         $("#viewreport").fadeOut(100);
         $('#report').removeClass('active');
         $(this).addClass('active');
         e.preventDefault();
+        viewEvents(dummylist);
     });
 
 $('#report').click(function(e) {
@@ -136,19 +138,14 @@ $('#report').click(function(e) {
         e.preventDefault();
     });
 
+$('#btn-view-report').click(function(e) {
+        viewReport(userlist,dummylist.event001);
+        $(this).preventDefault();
 
+    });
 
-//autopopulate Eventlist
-// var eventList = {};
-// var eventListTags = [];
+// autopopulate Eventlist
 
-// for (events in jsonEvents){
-//     eventList[jsonEvents[events].title] = events;
-//     eventListTags.push(jsonEvents[events].title);
-// }
-//     $( "#search" ).autocomplete({
-//       source: eventListTags
-//     });
 
 
 // Create Event using Ajax for better UX
@@ -160,17 +157,46 @@ $('#report').click(function(e) {
 //   // var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
 //   // indexcontroller.createnewevent(eventDetails);
 
-});
 
+
+
+var eventList = {};
+var eventListTags = [];
+var jsonEvents = dummylist;
+for (events in jsonEvents){
+    eventList[jsonEvents[events].title] = events;
+    eventListTags.push(jsonEvents[events].title);
+}
+    $("#search").autocomplete({
+      source: [1,2,3,5]
+    });
+
+
+});
+var userlist = {"users": {"hiskonxeptz": {"fullname": "Uyiosa Enabulele", "email": "3466"},"hiskonxeptz": {"fuullname": "Uyiosa Enabulele", "email": "3466"}}}
+  var dummylist = {"event001": {"eventTitle": "Bootcamp", "date": "3466",  "startTime": "657657", "attendees": {"hiskonxeptz":"1299","nosa":"1299"}}};
 
 function viewReport(jsonUserDetails, jsonEvents){
+    $('#report-desc').text('Attendance Report for ' + jsonEvents.eventTitle);
     $('#report-table > tbody').html("");
+    var sNo = 1;
     for (var user in jsonUserDetails){
-        var rowData = '<td>' + users[user].fullname + '</td>'
-        '<td>' + users[user].email + '</td>';
-        rowData += jsonEvents.attendees.hasProperty(users[user].email) ? '<td>' + "Present" + </td>: <td> + "Absent" + '</td>';
+        var rowData = '<td>' + sNo++ + '</td>'+'<td>' + jsonUserDetails[user].fullname + '</td>' +'<td>' + jsonUserDetails[user].email + '</td>';
+        rowData += jsonEvents.attendees.hasOwnProperty(jsonUserDetails[user].email) ? '<td>' + "Present" + "</td>": "<td>" + "Absent" + '</td>';
             $('#report-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
         }
 
 }
 
+
+
+function viewEvents(jsonEvents){
+
+    $('#event-table > tbody').html("");
+    var sNo = 1;
+    for (var eachEvent in jsonEvents){
+        var rowData = '<td>' + sNo++ + '</td>'+'<td>' + jsonEvents[eachEvent].eventTitle + '</td>'+'<td>' + jsonEvents[eachEvent].date + '</td>'+ '<td>' + jsonEvents[eachEvent].startTime + '</td>' +'<td>' + Object(jsonEvents[eachEvent].attendees).length + '</td>';
+            $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
+        }
+
+}

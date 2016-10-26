@@ -8,7 +8,7 @@ html
     link(rel='stylesheet', href='/css/app.styles.min.css')
     link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/css/style.css')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
 
 
@@ -40,12 +40,12 @@ html
     .container
       block content
     if settings.env == 'development'
-      script(src='http://localhost:35729/livereload.js')
-    script(src='/js/app.min.js')
+    //- script(src='http://localhost:35729/livereload.js')
+    //- script(src='/js/app.min.js')
     script(src='/js/main.js')
 
     footer.footer.navbar.navbar-inverse
       br
       h5.text-center.text-primary
-        a(href='admin')  Administrative Login 
+        a(href='admin')  ! rights reserved 
         | | (c) BootCamp 2016
