@@ -4,7 +4,8 @@ var firebase = require("firebase");
 var app = express();
 var xssFilters = require('xss-filters');
 var errorCode, errorMessage;
-
+var Promise = require('promise');
+var unirest = require('unirest');
 
 exports.index = function (req, res) {
   res.render('index', {
@@ -28,8 +29,15 @@ firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password
  });
 
 
-}
+};
 
+ //var jsonString = JSON.stringify(jsonObject);
+ //console.log(jsonString);
+ //console.log(jsonObject);
+ // var ref = firebase.database().ref("Subjects/");
+ // ref.child(quizName).set(jsonObject);
+ // readline.resume();
+ // readline.prompt();
 
 //req and res and 
 exports.signin = function(reqEmail, reqPassword) {
@@ -37,23 +45,34 @@ firebase.auth().signInWithEmailAndPassword(reqEmail, reqPassword).catch(function
   errorCode = error.code;
   errorMessage = error.message;
 })
-  // exports.checkstatus("Sign In Successful","Sign In Failed",errorMessage);
-// var user = firebase.auth().currentUser;
-// user.updateProfile({
-//   displayName: "Uyiosa Enabulele",
-//   // photoURL: "admin"
-// }).then(function() {
-//   // Update successful.
-// }, function(error) {
-//   // An error happened.
-// });
-return (errorCode);
-}
+
+return errorCode == true ? errorCode: "Success";
+};
+
+exports.getCurrentEvent = new Promise(function(resolve,reject){
+  var user = firebase.auth().currentUser;
+  firebase.database().ref('/setttings/currentEvent').once('value').then(function(snapshot) {
+  resolve(snapshot.val());
+  console.log("I got Here");});
+
+  // var currentEvent = unirest("https://attendanceregister-64a7b.firebaseio.com/setttings.json")
+  // resolve(currentEvent);
+ }).then(function(currentEvent){
+var user = firebase.auth().currentUser;
+var d = new Date();
+var key = user.email.split("@")[0];
+var obj = {};
+obj[key] = d;
+
+var reference = 'events/'+ currentEvent + '/attendees';
+  console.log("Started");
+  firebase.database().ref(reference).push(obj);
+  console.log("I got Here");
+});
 
 
-exports.setAttendance = function(req, res){
-  //current event  key: useremail and Name . push
-}
+
+
 
 
 exports.createnewevent = function(object){
@@ -62,18 +81,18 @@ firebase.database().ref("events/").push({
    date: object.eventDate,
    startTime: object.eventStartTime
    });
-}
+};
 
 exports.isAdmin = function(){
 var user = firebase.auth().currentUser;
 var email;
 if (user != null) {
   email = user.email;
-  if (email = "hiskonxeptz@gmail.com"){
-  	return true; 
+  if (email == "hiskonxeptz@gmail.com"){
+    return true; 
   }
 }
-}
+};
 
 
 
@@ -95,96 +114,11 @@ if (errorCode == 'auth/weak-password') {
 }
 
 
-}
+};
 
 exports.signout = function(req, res) {
 firebase.unauth();
-}
-
-// var playersRef = firebase.database().ref("players");
-// playersRef.push({
-//     John : {
-//         number : 5,
-//         age: 37
-//     },
-//     Amanda : {
-//         number : 55,
-//         age: 23
-//     }
-// });
-// var playersRef = firebase.database().ref('users');
-// playersRef.push({
-//     name: "James",
-//     age: 45
-// });
-
-
-
-// var name, email, photoUrl, uid;
-// // sign in
-
-// firebase.auth().onAuthStateChanged(function(user) {
-//  if (user) {
-//    console.log("Signed in");
-//    console.log(firebase.auth().currentUser);
-//  } else {
-//    // No user is signed in.
-//    console.log('Not signed in');
-//  }
-// });
-
-
-
-// function getDetails(user) {
-//     if (user != null) {
-//       name = user.displayName;
-//       email = user.email;
-//       photoUrl = user.photoURL;
-//       uid = user.uid; 
-// }
-
-// var uid = firebase.auth().currentUser;
-// console.log(uid);
-
-
-// postsRef.on('child_changed', function(data) {    
-//          // var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-// -        var post = data.key[0]
-//         data.val().title;
-// -        post.getElementsByClassName('username')[0].innerText = data.val().author;
-// -        post.getElementsByClassName('text')[0].innerText = data.val().body;
-// +        var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
-// +        postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
-// +        postElement.getElementsByClassName('username')[0].innerText = data.val().author;
-// +        postElement.getElementsByClassName('text')[0].innerText = data.val().body;
-// +        postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
-//      data.val().role = "admin";
-// });
-
-// var user = firebase.auth().currentUser;
-
-
-
-     // The user's ID, unique to the Firebase project. Do NOT use
-      // this value to authenticate with your backend server, if
-   // you have one. Use User.getToken() instead.
-// }
-// var user = firebase.auth().currentUser;
-// console.log(firebase.auth());
-
-
-
-
-
-
-
-// var ref = new firebase("https://maintenance-tracker-b8085.firebaseio.com/");
-// var authData = ref.getAuth();
-// if (authData) {
-//   console.log("Authenticated user with uid:", authData.uid);
-// }
-
-
+};
 
 
 /**

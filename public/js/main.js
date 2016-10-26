@@ -8,27 +8,6 @@
 $(document).ready(function () {
 
 
-$(function() {
-
-    $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-});
- 
-
-
     //stick in the fixed 100% height behind the navbar but don't wrap it
     $('#slide-nav.navbar-inverse').after($('<div class="inverse" id="navbar-height-col"></div>'));
   
@@ -64,22 +43,12 @@ $(function() {
             left: selected ? '0px' : slidewidth
         });
 
-
         $(this).toggleClass('slide-active', !selected);
         $('#slidemenu').toggleClass('slide-active');
-
-
         $('#page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
-
-
     });
-
-
     var selected = '#slidemenu, #page-content, body, .navbar, .navbar-header';
-
-
     $(window).on("resize", function () {
-
         if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
             $(selected).removeClass('slide-active');
         }
@@ -134,48 +103,74 @@ $(function() {
     });
 
 
-// Admmin Nav tabs
+//login form animate
 $('#login-form-link').click(function(e) {
-		$("#login-form").delay(100).fadeIn(100);
- 		$("#register-form").fadeOut(100);
-		$('#register-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
+        $("#login-form").delay(100).fadeIn(100);
+        $("#register-form").fadeOut(100);
+        $('#register-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
 $('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
+        $("#register-form").delay(100).fadeIn(100);
+        $("#login-form").fadeOut(100);
+        $('#login-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
 
-
+// Admmin Nav tabs
 $('#events').click(function(e) {
-		$("#viewevent").delay(100).fadeIn(100);
- 		$("#viewreport").fadeOut(100);
-		$('#report').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
+        $("#viewevent").delay(100).fadeIn(100);
+        $("#viewreport").fadeOut(100);
+        $('#report').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
 
 $('#report').click(function(e) {
-		$("#viewreport").delay(100).fadeIn(100);
- 		$("#viewevent").fadeOut(100);
-		$('#events').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-
-
-var availableTags = [
-      "ActionScript",
-     "Data 2"
-    ];
-    $( "#tags" ).autocomplete({
-      source: availableTags
+        $("#viewreport").delay(100).fadeIn(100);
+        $("#viewevent").fadeOut(100);
+        $('#events').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
     });
 
 
+
+//autopopulate Eventlist
+// var eventList = {};
+// var eventListTags = [];
+
+// for (events in jsonEvents){
+//     eventList[jsonEvents[events].title] = events;
+//     eventListTags.push(jsonEvents[events].title);
+// }
+//     $( "#search" ).autocomplete({
+//       source: eventListTags
+//     });
+
+
+// Create Event using Ajax for better UX
+
+// $('#create-event').click(function(e) {
+//     $('#new-event-form').filter(':input').each(function(e){
+//     alert($(e));
+// });
+//   // var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
+//   // indexcontroller.createnewevent(eventDetails);
+
 });
+
+
+function viewReport(jsonUserDetails, jsonEvents){
+    $('#report-table > tbody').html("");
+    for (var user in jsonUserDetails){
+        var rowData = '<td>' + users[user].fullname + '</td>'
+        '<td>' + users[user].email + '</td>';
+        rowData += jsonEvents.attendees.hasProperty(users[user].email) ? '<td>' + "Present" + </td>: <td> + "Absent" + '</td>';
+            $('#report-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
+        }
+
+}
 

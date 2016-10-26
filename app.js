@@ -13,8 +13,9 @@ var express        = require('express'),
     errorHandler   = require('errorhandler'),
     config         = require('./config'),
     routes         = require('./routes'),
-    firebase       = require("firebase");
-
+    firebase       = require("firebase"),
+    viewcontroller = require('./controllers/viewreport'),
+    indexcontroller= require('./controllers/index');
 
 // mongoose.connect(config.database.url);
 // mongoose.connection.on('error', function () {
@@ -23,8 +24,7 @@ var express        = require('express'),
 
 var app = express();
 
-viewcontroller = require('./controllers/viewreport');
-indexcontroller = require('./controllers/index');
+
 /**
  * Express configuration.
  */
@@ -56,23 +56,23 @@ if (app.get('env') === 'development') {
   app.use(errorHandler());
 }
 
-app.post('/admin/createnewevent', function(req, res){
-  var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
-  indexcontroller.createnewevent(eventDetails);
-  res.render(viewcontroller.read(req, res));
-    // res.render('index');
-});
+// app.post('/admin/createnewevent', function(req, res){
+//   var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
+//   indexcontroller.createnewevent(eventDetails);
+//     res.render('admin');
+// });
 
 
 app.post('/signin', function(req, res){
   
 firebase.auth().onAuthStateChanged(function(user) {
+
   if (user) {
     if (indexcontroller.isAdmin()){
-      res.render('admin');
+      res.redirect('admin');
     }
     else{
-    indexcontroller.setAttendance();  
+    indexcontroller.setAttendance;  
     }
     // User is signed in.
   } else {
@@ -81,7 +81,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // No user is signed in.
   }
 });
-  var signinMsg = indexcontroller.signin(req.body.loginEmail, req.body.loginPassword);    
+  var signMsg = indexcontroller.signin(req.body.loginEmail, req.body.loginPassword);    
 
   // res.render('index', {
   //       message: indexcontroller.signin(req, res)});
@@ -107,6 +107,7 @@ app.post('/signup', function(req, res){
       // res.send(indexcontroller.signup(req, res));
       res.render('index', {
         message: indexcontroller.signup(req, res) + " " + indexcontroller.signin(req.body.email, req.body.password)});
+      //attend
 });
 
 //check for errors

@@ -10,7 +10,9 @@
     "method-override": "~1.0.0",
     "mongoose": "~3.8.7",
     "morgan": "~1.0.0",
+    "promise": "^7.1.1",
     "static-favicon": "~1.0.1",
+    "unirest": "^0.5.1",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {

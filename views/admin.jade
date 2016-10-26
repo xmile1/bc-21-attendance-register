@@ -24,7 +24,7 @@ block content
                 button.btn.btn-default.btn-xs.btn-filter
                   span.glyphicon.glyphicon-filter
                   |  Filter
-            table.table
+            table#report-table.table
               thead
                 tr.filters
                   th
@@ -66,7 +66,7 @@ block content
                   .form-group.col-md-8
                     input#eventTitle.form-control(type='text', placeholder='New Event')
                   .form-group.col-md-4
-                    input#login-submit.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
+                    button.btn.btn-info.btn-primary(type='button', data-toggle='modal', data-target='#newEvent') Create Event
           .panel.panel-primary.filterable
             .panel-heading
               h3.panel-title Users
@@ -84,7 +84,9 @@ block content
                   th
                     input.form-control(type='text', placeholder='Event Date', disabled='')
                   th
-                    input.form-control(type='text', placeholder='Total Attendance', disabled='')
+                    input.form-control(type='text', placeholder='Start Time', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='No of Attendees', disabled='')
               tbody
                 tr
                   td 1
@@ -101,9 +103,8 @@ block content
                   td ss
                   td ss
                   td dd
-  //Popup for Create
-  // Modal
-  #myModal.modal.fade(role='dialog')
+  //Popup to Create New Event
+  #newEvent.modal.fade(role='dialog')
     .modal-dialog
       // Modal content
       .modal-content
@@ -111,7 +112,7 @@ block content
           button.close(type='button', data-dismiss='modal') ×
           h4.modal-title Create Event
         .modal-body
-          form#login-form(action='/createnewevent', method='post', role='form', style='display: block;')
+          form#new-event-form(action='#', method='', role='form', style='display: block;')
             .form-group
               input.form-control(name='eventTitle', type='text', placeholder='New Event')
             .form-group
@@ -119,7 +120,7 @@ block content
             .form-group
               input.form-control(name='eventStartTime', type='text', placeholder='StartTime')
             .form-group
-              input#login-submit.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
+              input#create-event.form-control.btn.btn-primary(type='button', name='Create', tabindex='4', value='Create')
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
 
