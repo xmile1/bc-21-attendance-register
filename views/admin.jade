@@ -1,0 +1,126 @@
+extends layout
+
+block content
+  #viewreport.container
+    .row
+      .col-sm-10.col-sm-offset-1
+        h3
+          | VIEW RREPORT
+        hr
+        .row
+          .row
+            .col-md-5 Attendance Reports of Events
+            .col-md-7
+              .row
+                form#login-form(action='/seach', method='post', role='form', style='display: block;')
+                  .form-group.col-md-8
+                    input#search.form-control(type='text', placeholder='Event')
+                  .form-group.col-md-4
+                    input#login-submit.form-control.btn.btn-primary(type='submit', name='search', tabindex='4', value='Search')
+          .panel.panel-primary.filterable
+            .panel-heading
+              h3.panel-title Attendance Report
+              .pull-right
+                button.btn.btn-default.btn-xs.btn-filter
+                  span.glyphicon.glyphicon-filter
+                  |  Filter
+            table.table
+              thead
+                tr.filters
+                  th
+                    input.form-control(type='text', placeholder='#', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Fullnames', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Email', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Attendance', disabled='')
+              tbody
+                tr
+                  td 1
+                  td Mark
+                  td ss
+                  td ss
+                tr
+                  td 2
+                  td Jacob
+                  td aa
+                  td aa
+                tr
+                  td 3
+                  td ss
+                  td ss
+                  td dd
+  #viewevent.container(style='display:none')
+    .row
+      .col-sm-10.col-sm-offset-1
+        h3
+          | VIEW EVENTS
+        hr
+        .row
+          .row
+            .col-md-5 Event List
+            .col-md-7
+              .row
+                form#login-form(action='/createnewevent', method='post', role='form', style='display: block;')
+                  .form-group.col-md-8
+                    input#eventTitle.form-control(type='text', placeholder='New Event')
+                  .form-group.col-md-4
+                    input#login-submit.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
+          .panel.panel-primary.filterable
+            .panel-heading
+              h3.panel-title Users
+              .pull-right
+                button.btn.btn-default.btn-xs.btn-filter
+                  span.glyphicon.glyphicon-filter
+                  |  Filter
+            table.table
+              thead
+                tr.filters
+                  th
+                    input.form-control(type='text', placeholder='#', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Event Title', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Event Date', disabled='')
+                  th
+                    input.form-control(type='text', placeholder='Total Attendance', disabled='')
+              tbody
+                tr
+                  td 1
+                  td Mark
+                  td ss
+                  td ss
+                tr
+                  td 2
+                  td Jacob
+                  td aa
+                  td aa
+                tr
+                  td 3
+                  td ss
+                  td ss
+                  td dd
+  //Popup for Create
+  // Modal
+  #myModal.modal.fade(role='dialog')
+    .modal-dialog
+      // Modal content
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal') ×
+          h4.modal-title Create Event
+        .modal-body
+          form#login-form(action='/createnewevent', method='post', role='form', style='display: block;')
+            .form-group
+              input.form-control(name='eventTitle', type='text', placeholder='New Event')
+            .form-group
+              input.form-control(name='eventDate', type='text', placeholder='Date')
+            .form-group
+              input.form-control(name='eventStartTime', type='text', placeholder='StartTime')
+            .form-group
+              input#login-submit.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+
