@@ -139,8 +139,8 @@ $('#report').click(function(e) {
     });
 
 $('#btn-view-report').click(function(e) {
-        viewReport(userlist,dummylist.event001);
-        $(this).preventDefault();
+        viewReport(userlist.users,dummylist.event001);
+        e.preventDefault();
 
     });
 
@@ -173,7 +173,7 @@ for (events in jsonEvents){
 
 
 });
-var userlist = {"users": {"hiskonxeptz": {"fullname": "Uyiosa Enabulele", "email": "3466"},"hiskonxeptz": {"fuullname": "Uyiosa Enabulele", "email": "3466"}}}
+var userlist = {"users": {"hiskonxeptz": {"fullname": "Uyiosa Enabulele", "email": "3466"},"hiskonxeptz2": {"fullname": "Uyiosa ggEnabulele", "email": "34gfh66"}}}
   var dummylist = {"event001": {"eventTitle": "Bootcamp", "date": "3466",  "startTime": "657657", "attendees": {"hiskonxeptz":"1299","nosa":"1299"}}};
 
 function viewReport(jsonUserDetails, jsonEvents){
@@ -181,6 +181,7 @@ function viewReport(jsonUserDetails, jsonEvents){
     $('#report-table > tbody').html("");
     var sNo = 1;
     for (var user in jsonUserDetails){
+        
         var rowData = '<td>' + sNo++ + '</td>'+'<td>' + jsonUserDetails[user].fullname + '</td>' +'<td>' + jsonUserDetails[user].email + '</td>';
         rowData += jsonEvents.attendees.hasOwnProperty(jsonUserDetails[user].email) ? '<td>' + "Present" + "</td>": "<td>" + "Absent" + '</td>';
             $('#report-table > tbody:last-child').append('<tr>' + rowData + '<tr>')

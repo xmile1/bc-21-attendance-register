@@ -36,21 +36,6 @@ block content
                   th
                     input.form-control(type='text', placeholder='Attendance', disabled='')
               tbody
-                tr
-                  td 1
-                  td Mark
-                  td ss
-                  td ss
-                tr
-                  td 2
-                  td Jacob
-                  td aa
-                  td aa
-                tr
-                  td 3
-                  td ss
-                  td ss
-                  td dd
   #viewevent.container(style='display:none')
     .row
       .col-sm-10.col-sm-offset-1
@@ -63,8 +48,6 @@ block content
             .col-md-7
               .row
                 form#login-form(action='/createnewevent', method='post', role='form', style='display: block;')
-                  .form-group.col-md-8
-                    input#eventTitle.form-control(type='text', placeholder='New Event')
                   .form-group.col-md-4
                     button.btn.btn-info.btn-primary(type='button', data-toggle='modal', data-target='#newEvent') Create Event
           .panel.panel-primary.filterable
@@ -88,21 +71,6 @@ block content
                   th
                     input.form-control(type='text', placeholder='No of Attendees', disabled='')
               tbody
-                tr
-                  td 1
-                  td Mark
-                  td ss
-                  td ss
-                tr
-                  td 2
-                  td Jacob
-                  td aa
-                  td aa
-                tr
-                  td 3
-                  td ss
-                  td ss
-                  td dd
   //Popup to Create New Event
   #newEvent.modal.fade(role='dialog')
     .modal-dialog

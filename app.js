@@ -87,6 +87,13 @@ firebase.auth().onAuthStateChanged(function(user) {
   //       message: indexcontroller.signin(req, res)});
 });
 
+
+app.get('/signout', function(req, res){
+    indexcontroller.signout();
+    res.render('layout');
+});
+
+
     // res.render('index');
 app.get('/admin/viewreport', function(req, res){
    res.render(viewcontroller.read(req, res));
