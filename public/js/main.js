@@ -66,8 +66,10 @@ $(document).ready(function() {
         $("#viewreport").fadeOut(100);
         $('#report').removeClass('active');
         $(this).addClass('active');
+        $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events.json", function(result) {
+            viewEvents(result);
+        });
         e.preventDefault();
-        viewEvents(dummylist);
     });
 
     $('#report').click(function(e) {
@@ -79,7 +81,14 @@ $(document).ready(function() {
     });
 
     $('#btn-view-report').click(function(e) {
-        viewReport(userlist.users, dummylist.event001);
+        var users;
+        $.getJSON("https://attendanceregister-64a7b.firebaseio.com/users.json", function(result) {
+            users = result
+            $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events/event001.json", function(result2) {
+
+                viewReport(users, result2);
+            });
+        });
         e.preventDefault();
 
     });
@@ -96,42 +105,42 @@ $(document).ready(function() {
 
 
 
-    var eventList = {};
-    var eventListTags = [];
-    var jsonEvents = dummylist;
-    for (events in jsonEvents) {
-        eventList[jsonEvents[events].title] = events;
-        eventListTags.push(jsonEvents[events].title);
-    }
-    $("#search").autocomplete({
-        source: [1, 2, 3, 5]
-    });
+    // var eventList = {};
+    // var eventListTags = [];
+    // var jsonEvents = dummylist;
+    // for (events in jsonEvents) {
+    //     eventList[jsonEvents[events].title] = events;
+    //     eventListTags.push(jsonEvents[events].title);
+    // }
+    // $("#search").autocomplete({
+    //     source: [1, 2, 3, 5]
+    // });
 
 
 });
 var userlist = {
-    "users": {
-        "hiskonxeptz": {
-            "fullname": "Uyiosa Enabulele",
-            "email": "3466"
-        },
-        "hiskonxeptz2": {
-            "fullname": "Uyiosa ggEnabulele",
-            "email": "34gfh66"
+        "users": {
+            "hiskonxeptz": {
+                "fullname": "Uyiosa Enabulele",
+                "email": "3466"
+            },
+            "hiskonxeptz2": {
+                "fullname": "Uyiosa ggEnabulele",
+                "email": "34gfh66"
+            }
         }
     }
-}
-var dummylist = {
-    "event001": {
-        "eventTitle": "Bootcamp",
-        "date": "3466",
-        "startTime": "657657",
-        "attendees": {
-            "hiskonxeptz": "1299",
-            "nosa": "1299"
-        }
-    }
-};
+    // var dummylist = {
+    //     "event001": {
+    //         "eventTitle": "Bootcamp",
+    //         "date": "3466",
+    //         "startTime": "657657",
+    //         "attendees": {
+    //             "hiskonxeptz": "1299",
+    //             "nosa": "1299"
+    //         }
+    //     }
+
 
 function viewReport(jsonUserDetails, jsonEvents) {
     $('#report-desc').text('Attendance Report for ' + jsonEvents.eventTitle);
@@ -149,7 +158,7 @@ function viewReport(jsonUserDetails, jsonEvents) {
 
 
 function viewEvents(jsonEvents) {
-
+    alert(jsonEvents);
     $('#event-table > tbody').html("");
     var sNo = 1;
     for (var eachEvent in jsonEvents) {

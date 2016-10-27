@@ -25,8 +25,14 @@ exports.signup = function(req, res) {
   firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
     errorMessage = error.message;
   });
-
-  return errorMessage == true ? errorMessage : "Successful Signin";
+  var theref = "users";
+  var thekey = req.body.email.split("@")[0];
+  var details = {
+    email: req.body.email,
+    fullname: req.body.fullname
+  };
+  exports.create(theref, thekey, details);
+  return errorMessage == true ? errorMessage : "Successful SignUp";
 };
 
 //var jsonString = JSON.stringify(jsonObject);
@@ -43,28 +49,44 @@ exports.signin = function(reqEmail, reqPassword) {
     console.log("end");
   })
 
-  return errorMessage == true ? errorMessage : "Successful Signin";
 };
-var currentEvent;
-var setAttendance = new Promise(function(resolve, reject) {
+
+exports.setAttendance = function() {
   var user = firebase.auth().currentUser;
+  var currentEvent;
+  var done;
   firebase.database().ref('setttings/currentEvent').once('value').then(function(snapshot) {
-    resolve(snapshot.val());
     currentEvent = snapshot.val();
+    var user = firebase.auth().currentUser;
+    var d = new Date().toISOString().slice(0, 10);
+    var key = user.email.split("@")[0];
+    var obj = {};
+
+    var reference = 'events/' + currentEvent + '/attendees';
+    var setPresent = firebase.database().ref(reference);
+    setPresent.child(key).set(String(d));
+    console.log(reference);
+    done = "Logged";
   });
-}).then(function() {
-  var user = firebase.auth().currentUser;
-  var d = new Date();
-  var key = user.email.split("@")[0];
-  var obj = {};
+  return function setit() {
+    return done;
+  }
+};
+//   Promise.resolve(setAttendance1).then(function(currentEvent) {
 
-  var reference = 'events/' + currentEvent + '/attendees';
-  var setPresent = firebase.database().ref(reference);
-  setPresent.child(key).set(d);
-});
+//   return "Done";
 
+// }
 
+function one() {
+  var i = 2 * 3;
+  return function two() {
+    return 3 * i;
+  };
+}
 
+var a = one()(10)
+console.log(a);
 exports.createnewevent = function(ref, object) {
   firebase.database().ref("events/").push({
     eventTitle: object.eventTitle,
@@ -123,15 +145,18 @@ exports.signout = function(req, res) {
 /**
  * Create a Category
  */
-exports.create = function(req, res) {
-
+exports.create = function(reference, key, object) {
+  var setPresent = firebase.database().ref(reference);
+  setPresent.child(key).set(object);
 };
 
 /**
  * Show the current Category
  */
-exports.read = function(req, res) {
-  // res.json({"test":"fsddfdsdffdstestingg","dds":"sdfsdf"});
+exports.read = function(path) {
+  firebase.database().ref(path).once('value').then(function(snapshot) {
+    return snapshot.val();
+  });
 };
 /**
  * Update a Category

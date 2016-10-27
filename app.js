@@ -18,7 +18,7 @@ var express = require('express'),
   indexcontroller = require('./controllers/index');
 
 var app = express();
-
+console.log(require('path').basename(__dirname));
 
 /**
  * Express configuration.
@@ -67,9 +67,9 @@ app.post('/signin', function(req, res) {
       if (indexcontroller.isAdmin()) {
         res.redirect('admin');
       } else {
-        console.log(indexcontroller.setAttendance);
+        var themsg = indexcontroller.setAttendance()();
         res.render('index', {
-          message: "Registered"
+          message: themsg
         });
 
       }
