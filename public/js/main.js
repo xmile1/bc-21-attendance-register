@@ -16,10 +16,10 @@ $(document).ready(function() {
     });
 
     $('.filterable .filters input').keyup(function(e) {
-        /* Ignore tab key */
+        // Ignore tab key 
         var code = e.keyCode || e.which;
         if (code == '9') return;
-        /* Useful DOM data and selectors */
+        // Useful DOM data and selectors 
         var $input = $(this),
             inputContent = $input.val().toLowerCase(),
             $panel = $input.parents('.filterable'),
@@ -109,14 +109,15 @@ $(document).ready(function() {
         }
     };
 
-    for (var events in dummylist) {
-        $('#event-to-view').append('<option>' + events + '</option>')
+    // for (var events in dummylist) {
+    //     $('#event-to-view').append('<option>' + events + '</option>')
 
-    }
+    // }
 
     $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events.json", function(result) {
+
         for (var events in result) {
-            $('#event-to-view > option:last-child').append('<option>' + events + '</option>')
+            $('#event-to-view').append('<option>' + events + '</option>')
 
         }
 

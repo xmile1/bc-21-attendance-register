@@ -71,6 +71,8 @@ exports.setAttendance = function() {
     var setPresent = firebase.database().ref(reference);
     setPresent.child(key).set(String(d));
     done = "Your Attendance Has been Logged";
+    console.log("got here")
+    exports.signout;
   });
   return function setit() {
     return done;
@@ -130,6 +132,7 @@ exports.checkStatus = function(pos, neg, errorMessage) {
 exports.signout = function(req, res) {
   firebase.auth().signOut();
   return ("You have been Signed Out");
+  console.log("signedout");
 };
 
 
@@ -140,7 +143,9 @@ exports.create = function(reference, key, object) {
   var setPresent = firebase.database().ref(reference);
   setPresent.child(key).set(object);
   console.log("gothere");
-  return true;
+  return {
+    status: "Event Created!"
+  };
 };
 
 /**

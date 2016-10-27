@@ -64,16 +64,14 @@ app.post('/createevent', function(req, res) {
   var thekey = req.body.eventShortCode;
   var details = {
     eventTitle: req.body.eventTitle,
-    startTime: req.body.fullname,
+    startTime: req.body.eventStartTime,
     date: req.body.eventDate,
     attendees: {}
   };
 
-  if (indexcontroller.create(theref, thekey, details) == true) {
-    res.render('admin', {
-      status: "Event Created!"
-    });
-  }
+  // if (indexcontroller.create(theref, thekey, details) == true) {
+  res.render('admin', indexcontroller.create(theref, thekey, details));
+  // }
 
 
 });
@@ -86,14 +84,11 @@ app.post('/signin', function(req, res) {
       if (indexcontroller.isAdmin()) {
         res.redirect('admin');
       } else {
-        var themsg = indexcontroller.setAttendance()();
-        console.log(themsg);
-        if (themsg != "") {
+        indexcontroller.setAttendance()();
+        res.render('index', {
+          message: "Your Registration has been logged"
+        });
 
-          res.render('index', {
-            message: themsg
-          });
-        }
 
       }
       // User is signed in.
