@@ -23,12 +23,10 @@ firebase.initializeApp(config);
 
 exports.signup = function(req, res) {
   firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
-    errorCode = error.code;
     errorMessage = error.message;
-    i9
   });
 
-
+  return errorMessage == true ? errorMessage : "Successful Signin";
 };
 
 //var jsonString = JSON.stringify(jsonObject);
@@ -39,30 +37,30 @@ exports.signup = function(req, res) {
 
 //req and res and 
 exports.signin = function(reqEmail, reqPassword) {
+  console.log("start");
   firebase.auth().signInWithEmailAndPassword(reqEmail, reqPassword).catch(function(error) {
-    errorCode = error.code;
     errorMessage = error.message;
+    console.log("end");
   })
 
-  return errorCode == true ? errorCode : "Success";
+  return errorMessage == true ? errorMessage : "Successful Signin";
 };
-
+var currentEvent;
 var setAttendance = new Promise(function(resolve, reject) {
   var user = firebase.auth().currentUser;
-  firebase.database().ref('/setttings/currentEvent').once('value').then(function(snapshot) {
+  firebase.database().ref('setttings/currentEvent').once('value').then(function(snapshot) {
     resolve(snapshot.val());
+    currentEvent = snapshot.val();
   });
-}).then(function(currentEvent) {
+}).then(function() {
   var user = firebase.auth().currentUser;
   var d = new Date();
   var key = user.email.split("@")[0];
   var obj = {};
-  obj[key] = d;
 
   var reference = 'events/' + currentEvent + '/attendees';
-  console.log("Started");
-  firebase.database().ref(reference).push(obj);
-  console.log("I got Here");
+  var setPresent = firebase.database().ref(reference);
+  setPresent.child(key).set(d);
 });
 
 
@@ -117,7 +115,8 @@ exports.checkStatus = function(pos, neg, errorMessage) {
 };
 
 exports.signout = function(req, res) {
-  firebase.unauth().signout();
+  firebase.auth().signOut();
+  return ("You have been Signed Out");
 };
 
 

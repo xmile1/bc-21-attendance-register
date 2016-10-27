@@ -42,15 +42,15 @@ if (app.get('env') === 'development') {
 }
 
 
-app.get('/*', function(req, res) {
+// app.get('/*', function(req, res) {
 
-  if (indexcontroller.isLoggedIn === false) {
-    res.render('index', {
-      status: "Please, You need to Login"
-    })
-  }
+//   if (indexcontroller.isLoggedIn === false) {
+//     res.render('index', {
+//       status: "Please, You need to Login"
+//     })
+//   }
 
-});
+// });
 
 app.post('/signup', function(req, res) {
   // res.send(indexcontroller.signup(req, res));
@@ -67,7 +67,11 @@ app.post('/signin', function(req, res) {
       if (indexcontroller.isAdmin()) {
         res.redirect('admin');
       } else {
-        indexcontroller.setAttendance;
+        console.log(indexcontroller.setAttendance);
+        res.render('index', {
+          message: "Registered"
+        });
+
       }
       // User is signed in.
     } else {
@@ -84,8 +88,9 @@ app.post('/signin', function(req, res) {
 
 
 app.get('/signout', function(req, res) {
-  indexcontroller.signout();
-  res.render('layout');
+  res.render('index', {
+    status: indexcontroller.signout()
+  });
 });
 
 
