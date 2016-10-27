@@ -18,8 +18,6 @@ var express = require('express'),
   indexcontroller = require('./controllers/index');
 
 var app = express();
-console.log(require('path').basename(__dirname));
-
 /**
  * Express configuration.
  */
@@ -42,15 +40,15 @@ if (app.get('env') === 'development') {
 }
 
 
-// app.get('/*', function(req, res) {
+app.get('/*', function(req, res) {
 
-//   if (indexcontroller.isLoggedIn === false) {
-//     res.render('index', {
-//       status: "Please, You need to Login"
-//     })
-//   }
+  if (indexcontroller.isLoggedIn === false) {
+    res.render('index', {
+      status: "Please, You need to Login"
+    })
+  }
 
-// });
+});
 
 app.post('/signup', function(req, res) {
   // res.send(indexcontroller.signup(req, res));
@@ -59,6 +57,8 @@ app.post('/signup', function(req, res) {
   });
   //attend
 });
+
+
 
 app.post('/signin', function(req, res) {
   firebase.auth().onAuthStateChanged(function(user) {
@@ -101,8 +101,9 @@ app.get('/admin/viewreport', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  res.render('admin');
-  // res.render('index');
+  if (indexcontroller.isAdmin()) {
+    res.redirect('admin');
+  }
 });
 
 app.get('/', function(req, res) {

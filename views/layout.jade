@@ -46,11 +46,12 @@ html
               span #{status}
 
       block content
-    if settings.env == 'development'
-    //- script(src='http://localhost:35729/livereload.js')
-    //- script(src='/js/app.min.js')
+    //- if settings.env == 'development'
+    //- //- script(src='http://localhost:35729/livereload.js')
+    //- //- script(src='/js/app.min.js')
     script(src='/js/main.js')
-
+    //- Fixes hidden table's buttom
+    .clearfix(style='padding-top: 80px;')
     footer.footer.navbar.navbar-inverse.navbar-fixed-bottom
       br
       h5.text-center.text-primary
