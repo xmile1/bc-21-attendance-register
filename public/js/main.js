@@ -81,10 +81,13 @@ $(document).ready(function() {
     });
 
     $('#btn-view-report').click(function(e) {
-        var users;
+        var users, theEvent;
+        theEvent = $("#event-to-view").val();
+        alert(theEvent);
+
         $.getJSON("https://attendanceregister-64a7b.firebaseio.com/users.json", function(result) {
             users = result
-            $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events/event001.json", function(result2) {
+            $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events/" + theEvent + ".json", function(result2) {
 
                 viewReport(users, result2);
             });
@@ -94,14 +97,8 @@ $(document).ready(function() {
     });
 
 
-    // Create Event using Ajax for better UX
-
-    // $('#create-event').click(function(e) {
-    //     $('#new-event-form').filter(':input').each(function(e){
-    //     alert($(e));
-    // });
-    //   // var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
-    //   // indexcontroller.createnewevent(eventDetails);
+    // var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
+    // indexcontroller.createnewevent(eventDetails);
 
 
 
@@ -147,9 +144,11 @@ function viewReport(jsonUserDetails, jsonEvents) {
     $('#report-table > tbody').html("");
     var sNo = 1;
     for (var user in jsonUserDetails) {
-
-        var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonUserDetails[user].fullname + '</td>' + '<td>' + jsonUserDetails[user].email + '</td>';
-        rowData += jsonEvents.attendees.hasOwnProperty(jsonUserDetails[user].email) ? '<td>' + "Present" + "</td>" : "<td>" + "Absent" + '</td>';
+        var email = jsonUserDetails[user].email.split("@")[0];
+        var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonUserDetails[user].fullname +
+            '</td>' + '<td>' + jsonUserDetails[user].email + '</td>';
+        rowData += jsonEvents.attendees.hasOwnProperty(email) ? '<td>' +
+            "Present" + "</td>" : "<td>" + "Absent" + '</td>';
         $('#report-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
     }
 
@@ -158,11 +157,13 @@ function viewReport(jsonUserDetails, jsonEvents) {
 
 
 function viewEvents(jsonEvents) {
-    alert(jsonEvents);
     $('#event-table > tbody').html("");
     var sNo = 1;
+
     for (var eachEvent in jsonEvents) {
-        var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonEvents[eachEvent].eventTitle + '</td>' + '<td>' + jsonEvents[eachEvent].date + '</td>' + '<td>' + jsonEvents[eachEvent].startTime + '</td>' + '<td>' + Object(jsonEvents[eachEvent].attendees).length + '</td>';
+        var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonEvents[eachEvent].eventTitle +
+            '</td>' + '<td>' + jsonEvents[eachEvent].date + '</td>' + '<td>' +
+            jsonEvents[eachEvent].startTime + '</td>' + '<td>' + Object.keys(jsonEvents[eachEvent].attendees).length + '</td>';
         $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
     }
 
