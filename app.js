@@ -87,9 +87,13 @@ app.post('/signin', function(req, res) {
         res.redirect('admin');
       } else {
         var themsg = indexcontroller.setAttendance()();
-        res.render('index', {
-          message: themsg
-        });
+        console.log(themsg);
+        if (themsg != "") {
+
+          res.render('index', {
+            message: themsg
+          });
+        }
 
       }
       // User is signed in.

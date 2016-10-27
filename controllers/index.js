@@ -70,8 +70,7 @@ exports.setAttendance = function() {
     var reference = 'events/' + currentEvent + '/attendees';
     var setPresent = firebase.database().ref(reference);
     setPresent.child(key).set(String(d));
-    console.log(reference);
-    done = "Logged";
+    done = "Your Attendance Has been Logged";
   });
   return function setit() {
     return done;
