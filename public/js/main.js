@@ -97,46 +97,46 @@ $(document).ready(function() {
     });
 
 
-    // var eventDetails = {'eventTitle':req.body.eventTitle, 'eventDate':req.body.eventDate,'eventStartTime':req.body.eventStartTime };
-    // indexcontroller.createnewevent(eventDetails);
+    var dummylist = {
+        "event001": {
+            "eventTitle": "Bootcamp",
+            "date": "3466",
+            "startTime": "657657",
+            "attendees": {
+                "hiskonxeptz": "1299",
+                "nosa": "1299"
+            }
+        }
+    };
+
+    for (var events in dummylist) {
+        $('#event-to-view').append('<option>' + events + '</option>')
+
+    }
+
+    $.getJSON("https://attendanceregister-64a7b.firebaseio.com/events.json", function(result) {
+        for (var events in result) {
+            $('#event-to-view > option:last-child').append('<option>' + events + '</option>')
+
+        }
 
 
-
-    // var eventList = {};
-    // var eventListTags = [];
-    // var jsonEvents = dummylist;
-    // for (events in jsonEvents) {
-    //     eventList[jsonEvents[events].title] = events;
-    //     eventListTags.push(jsonEvents[events].title);
-    // }
-    // $("#search").autocomplete({
-    //     source: [1, 2, 3, 5]
-    // });
+    });
 
 
 });
-var userlist = {
-        "users": {
-            "hiskonxeptz": {
-                "fullname": "Uyiosa Enabulele",
-                "email": "3466"
-            },
-            "hiskonxeptz2": {
-                "fullname": "Uyiosa ggEnabulele",
-                "email": "34gfh66"
-            }
-        }
-    }
-    // var dummylist = {
-    //     "event001": {
-    //         "eventTitle": "Bootcamp",
-    //         "date": "3466",
-    //         "startTime": "657657",
-    //         "attendees": {
-    //             "hiskonxeptz": "1299",
-    //             "nosa": "1299"
-    //         }
-    //     }
+// var userlist = {
+//         "users": {
+//             "hiskonxeptz": {
+//                 "fullname": "Uyiosa Enabulele",
+//                 "email": "3466"
+//             },
+//             "hiskonxeptz2": {
+//                 "fullname": "Uyiosa ggEnabulele",
+//                 "email": "34gfh66"
+//             }
+//         }
+//     }
 
 
 function viewReport(jsonUserDetails, jsonEvents) {

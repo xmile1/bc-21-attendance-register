@@ -14,7 +14,8 @@ block content
               .row
                 form#login-form(action='', method='', role='form', style='display: block;')
                   .form-group.col-md-8
-                    input#event-to-view.form-control(type='text', placeholder='Event', value='tests')
+                    select#event-to-view.form-control
+                      option select event
                   .form-group.col-md-4
                     input#btn-view-report.form-control.btn.btn-primary(type='button', name='view', tabindex='4', value='View Report')
           .panel.panel-primary.filterable
@@ -80,7 +81,7 @@ block content
           button.close(type='button', data-dismiss='modal') ×
           h4.modal-title Create Event
         .modal-body
-          form#new-event-form(action='#', method='', role='form', style='display: block;')
+          form#new-event-form(action='/createevent',method='post', role='form', style='display: block;')
             .form-group
               input.form-control(name='eventTitle', type='text', placeholder='New Event')
             .form-group
@@ -88,7 +89,9 @@ block content
             .form-group
               input.form-control(name='eventStartTime', type='text', placeholder='StartTime')
             .form-group
-              input#create-event.form-control.btn.btn-primary(type='button', name='Create', tabindex='4', value='Create')
+              input.form-control(name='eventShortCode', type='text', placeholder='Event Short Code')
+            .form-group
+              input#create-event.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
 

@@ -40,24 +40,43 @@ if (app.get('env') === 'development') {
 }
 
 
-app.get('/*', function(req, res) {
+// app.get('/*', function(req, res) {
 
-  if (indexcontroller.isLoggedIn === false) {
-    res.render('index', {
-      status: "Please, You need to Login"
-    })
-  }
+//   if (indexcontroller.isLoggedIn === false) {
+//     res.render('index', {
+//       status: "Please, You need to Login"
+//     })
+//   }
 
-});
+// });
 
 app.post('/signup', function(req, res) {
   // res.send(indexcontroller.signup(req, res));
   res.render('index', {
-    message: indexcontroller.signup(req, res) + " " + indexcontroller.signin(req.body.email, req.body.password)
+    message: indexcontroller.signup(req, res)
   });
   //attend
 });
 
+app.post('/createevent', function(req, res) {
+  console.log("got here");
+  var theref = "events";
+  var thekey = req.body.eventShortCode;
+  var details = {
+    eventTitle: req.body.eventTitle,
+    startTime: req.body.fullname,
+    date: req.body.eventDate,
+    attendees: {}
+  };
+
+  if (indexcontroller.create(theref, thekey, details) == true) {
+    res.render('admin', {
+      status: "Event Created!"
+    });
+  }
+
+
+});
 
 
 app.post('/signin', function(req, res) {
@@ -101,9 +120,10 @@ app.get('/admin/viewreport', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-  if (indexcontroller.isAdmin()) {
-    res.redirect('admin');
-  }
+
+  res.render('admin');
+
+  // res.render('index');
 });
 
 app.get('/', function(req, res) {

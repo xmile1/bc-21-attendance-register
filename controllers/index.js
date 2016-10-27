@@ -22,17 +22,22 @@ var config = {
 firebase.initializeApp(config);
 
 exports.signup = function(req, res) {
-  firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
-    errorMessage = error.message;
-  });
-  var theref = "users";
-  var thekey = req.body.email.split("@")[0];
-  var details = {
-    email: req.body.email,
-    fullname: req.body.fullname
-  };
-  exports.create(theref, thekey, details);
-  return errorMessage == true ? errorMessage : "Successful SignUp";
+  if (req.body.password == req.body.confirmpassword) {
+    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
+      errorMessage = error.message;
+    });
+    var theref = "users";
+    var thekey = req.body.email.split("@")[0];
+    var details = {
+      email: req.body.email,
+      fullname: req.body.fullname
+    };
+    exports.create(theref, thekey, details);
+    return errorMessage == true ? errorMessage : "Successful SignUp";
+  } else {
+    return "Password does not match";
+  }
+
 };
 
 //var jsonString = JSON.stringify(jsonObject);
@@ -72,21 +77,8 @@ exports.setAttendance = function() {
     return done;
   }
 };
-//   Promise.resolve(setAttendance1).then(function(currentEvent) {
 
-//   return "Done";
 
-// }
-
-function one() {
-  var i = 2 * 3;
-  return function two() {
-    return 3 * i;
-  };
-}
-
-var a = one()(10)
-console.log(a);
 exports.createnewevent = function(ref, object) {
   firebase.database().ref("events/").push({
     eventTitle: object.eventTitle,
@@ -148,6 +140,8 @@ exports.signout = function(req, res) {
 exports.create = function(reference, key, object) {
   var setPresent = firebase.database().ref(reference);
   setPresent.child(key).set(object);
+  console.log("gothere");
+  return true;
 };
 
 /**
