@@ -8,6 +8,7 @@ html
     link(rel='stylesheet', href='/css/app.styles.min.css')
     link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/vendor/sleeknav.css')
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
 
@@ -38,13 +39,19 @@ html
     .header.container-fluid
       block subheader
     .container
+      if (status)
+        .row
+            .alert.alert-success.col-xs-10.col-xs-offset-1
+              a.close(href='#', data-dismiss='alert', aria-label='close') ×
+              span #{status}
+
       block content
     if settings.env == 'development'
     //- script(src='http://localhost:35729/livereload.js')
     //- script(src='/js/app.min.js')
     script(src='/js/main.js')
 
-    footer.footer.navbar.navbar-inverse
+    footer.footer.navbar.navbar-inverse.navbar-fixed-bottom
       br
       h5.text-center.text-primary
         a(href='admin')  ! rights reserved 
