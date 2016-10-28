@@ -5,17 +5,12 @@
 ## Introduction
 *  **`XAttend`** is a nodeJS Powered Event Attendance Register.
 *  It's features include;
-  *  Sign up for new Users
-  *  Signin to  
-  *  Allows users to edit uploaded images using effects and filters including;
-    *  Contours
-    *  Image Sharpening
-    *  Image Blur
-    *  Image Detail
-    *  Image Emboss
-    *  Image Smoothening
-  *  Allows users to share uploaded images on Facebook via a public url
-*  Click [here](http://vistagrid.herokuapp.com/) to access the app on Heroku
+  *  Sign up for new Users using email
+  *  Simple button Click to indicate attendance
+  *  Admin Page with functionality including 
+     * view attendance report per event
+     * vies event list and total attendees
+     * view graph summary of attendance based on event
 
 ## Dependencies
 
