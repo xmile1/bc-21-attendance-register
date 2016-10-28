@@ -52,7 +52,7 @@ block content
                   .form-group.col-md-4
                     button.btn.btn-primary(type='button', data-toggle='modal', data-target='#newEvent', style='display: block;') Create Event
                 .col-md-4
-                    button#viewgraph.btn.btn-primary(type='button', data-toggle='modal', data-target='#newEvent', style='display: block;') Create Event
+                    button#viewgraph.btn.btn-primary(type='button', data-toggle='modal', data-target='#graph', style='display: block;') View Graph
           .panel.panel-primary.filterable
             .panel-heading
               h3.panel-title Users
@@ -94,6 +94,18 @@ block content
               input.form-control(name='eventShortCode', type='text', placeholder='Event Short Code')
             .form-group
               input#create-event.form-control.btn.btn-primary(type='submit', name='Create', tabindex='4', value='Create')
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+  //Popup to Create New Event
+  #graph.modal.fade(role='dialog')
+    .modal-dialog
+      // Modal content
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal') ×
+          h4.modal-title View Graph
+        .modal-body
+          canvas#myChart(width='400', height='400')
         .modal-footer
           button.btn.btn-default(type='button', data-dismiss='modal') Close
 

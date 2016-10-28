@@ -1,3 +1,6 @@
+var chartData = [],
+    chartLabels = [],
+    data = {};
 $(document).ready(function() {
 
     // Beautify the Table and add search function
@@ -72,12 +75,32 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    //Load Report Page
     $('#report').click(function(e) {
         $("#viewreport").delay(100).fadeIn(100);
         $("#viewevent").fadeOut(100);
         $('#events').removeClass('active');
         $(this).addClass('active');
         e.preventDefault();
+    });
+    //View Graph
+    $('#viewgraph').click(function(e) {
+        alert(data);
+        var ctx = document.getElementById("myChart");
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+        });
     });
 
     $('#btn-view-report').click(function(e) {
@@ -159,13 +182,39 @@ function viewReport(jsonUserDetails, jsonEvents) {
 function viewEvents(jsonEvents) {
     $('#event-table > tbody').html("");
     var sNo = 1;
-
     for (var eachEvent in jsonEvents) {
         var noOfAttendees = String(Object.keys(jsonEvents[eachEvent].attendees).length - 1);
+        chartLabels.push(jsonEvents[eachEvent].eventTitle);
+        chartData.push(noOfAttendees);
         var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonEvents[eachEvent].eventTitle +
             '</td>' + '<td>' + jsonEvents[eachEvent].date + '</td>' + '<td>' +
             jsonEvents[eachEvent].startTime + '</td>' + '<td>' + noOfAttendees + '</td>';
-        $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
+        $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>');
     }
 
+    //set graph data
+    data = {
+        labels: chartLabels,
+        datasets: [{
+            label: "Event Attendance Graph",
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            data: chartData,
+        }]
+    };
 }
