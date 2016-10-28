@@ -7,9 +7,9 @@
 *  It's features include;
   *  Sign up for new Users using email
   *  Simple button Click to indicate attendance
-  *  Admin Page with functionality including 
+  *  Admin Page with functionalities including 
      * view attendance report per event
-     * vies event list and total attendees
+     * view event list and total attendees
      * view graph summary of attendance based on event
 
 ## Dependencies
@@ -45,7 +45,7 @@
 
 *  Navigate to the repo's folder on your computer
   *  `cd bc-21-attendance-register/`
-*  Install the app's backend dependencies. For best results, using a [virtual environment]
+*  Install the app's backend dependencies.
   *  `npm install`
 * Run the app
   *  `node app.js`
