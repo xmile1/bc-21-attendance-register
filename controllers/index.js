@@ -98,6 +98,13 @@ exports.createnewevent = function(ref, object) {
   var reference = 'events/' + currentEvent + '/attendees';
   var setPresent = firebase.database().ref(reference);
   setPresent.child(key).set(String(d));
+
+  //set current event
+  var theref = "settings";
+  var thekey = "currentEvent";
+  var details = currentEvent;
+  indexcontroller.create(theref, thekey, details);
+
 };
 
 exports.isAdmin = function() {

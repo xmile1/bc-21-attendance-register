@@ -164,7 +164,7 @@ function viewEvents(jsonEvents) {
     for (var eachEvent in jsonEvents) {
         var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonEvents[eachEvent].eventTitle +
             '</td>' + '<td>' + jsonEvents[eachEvent].date + '</td>' + '<td>' +
-            jsonEvents[eachEvent].startTime + '</td>' + '<td>' + Object.keys(jsonEvents[eachEvent].attendees).length + '</td>';
+            jsonEvents[eachEvent].startTime + '</td>' + '<td>' + Object.keys(jsonEvents[eachEvent].attendees).length - 1 + '</td>';
         $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
     }
 
