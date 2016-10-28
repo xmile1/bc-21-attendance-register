@@ -108,7 +108,7 @@ app.post('/signin', function(req, res) {
     //   // No user is signed in.
     // }
   });
-  var signMsg = indexcontroller.signin(req.body.loginEmail, req.body.loginPassword);
+  var signMsg = indexcontroller.signin(xssFilters.inHTMLData(req.body.loginEmail), xssFilters.inHTMLData(req.body.loginPassword));
 
   setTimeout(function() {
     res.render('index', {

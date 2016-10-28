@@ -3,6 +3,8 @@ var chartData = [],
     data = {};
 $(document).ready(function() {
 
+
+    //Credit to Jason Barrows
     // Beautify the Table and add search function
     $('.filterable .btn-filter').click(function() {
         var $panel = $(this).parents('.filterable'),
@@ -44,6 +46,8 @@ $(document).ready(function() {
             $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table.find('.filters th').length + '">No result found</td></tr>'));
         }
     });
+    //Credit to Jason Barrows
+
 
 
     //login form animate

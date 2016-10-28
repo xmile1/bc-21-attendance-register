@@ -23,14 +23,14 @@ firebase.initializeApp(config);
 
 exports.signup = function(req, res) {
   if (req.body.password == req.body.confirmpassword) {
-    firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(xssFilters.inHTMLData(req.body.email), xssFilters.inHTMLData(req.body.password)).catch(function(error) {
       errorMessage = error.message;
     });
     var theref = "users";
-    var thekey = req.body.email.split("@")[0];
+    var thekey = xssFilters.inHTMLData(req.body.email).split("@")[0];
     var details = {
-      email: req.body.email,
-      fullname: req.body.fullname
+      email: xssFilters.inHTMLData(req.body.email),
+      fullname: xssFilters.inHTMLData(req.body.fullname)
     };
     exports.create(theref, thekey, details);
     return errorMessage == true ? errorMessage : "Successful SignUp";
@@ -49,7 +49,7 @@ exports.signup = function(req, res) {
 //req and res and 
 exports.signin = function(reqEmail, reqPassword) {
   console.log("start");
-  firebase.auth().signInWithEmailAndPassword(reqEmail, reqPassword).catch(function(error) {
+  firebase.auth().signInWithEmailAndPassword(xssFilters.inHTMLData(reqEmail), xssFilters.inHTMLData(reqPassword)).catch(function(error) {
     errorMessage = error.message;
     console.log("end");
   })
@@ -83,22 +83,22 @@ exports.setAttendance = function() {
 };
 
 
-exports.createnewevent = function(ref, object) {
-  firebase.database().ref("events/").push({
-    eventTitle: object.eventTitle,
-    date: object.eventDate,
-    startTime: object.eventStartTime
-  });
+// exports.createnewevent = function(ref, object) {
+//   firebase.database().ref("events/").push({
+//     eventTitle: object.eventTitle,
+//     date: object.eventDate,
+//     startTime: object.eventStartTime
+//   });
 
-  var user = firebase.auth().currentUser;
-  var d = new Date().toISOString().slice(0, 10);
-  var key = user.email.split("@")[0];
-  var obj = {};
+//   var user = firebase.auth().currentUser;
+//   var d = new Date().toISOString().slice(0, 10);
+//   var key = user.email.split("@")[0];
+//   var obj = {};
 
-  var reference = 'events/' + currentEvent + '/attendees';
-  var setPresent = firebase.database().ref(reference);
-  setPresent.child(key).set(String(d));
-};
+//   var reference = 'events/' + currentEvent + '/attendees';
+//   var setPresent = firebase.database().ref(reference);
+//   setPresent.child(key).set(String(d));
+// };
 
 exports.isAdmin = function() {
   var user = firebase.auth().currentUser;
