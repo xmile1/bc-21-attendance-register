@@ -137,10 +137,20 @@ app.get('/admin/viewreport', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-
-  res.render('admin');
-
+  var user = firebase.auth().currentUser;
+  if (user) {
+    res.render('admin');
+  }
   // res.render('index');
+
+
+  setTimeout(function() {
+    res.render('index', {
+      message: "Error, Only Administrators allowed or Try Again"
+    });
+  }, 10000);
+
+
 });
 
 app.get('/', function(req, res) {

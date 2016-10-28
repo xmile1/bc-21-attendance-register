@@ -1,6 +1,8 @@
 {
     "name": "attendance-app",
-    "version": "0.0.0",
+    "version": "0.0.1",
+
+    "main": "app.js",
     "dependencies": {
         "body-parser": "~1.0.0",
         "chart.js": "^2.3.0",
@@ -31,6 +33,14 @@
         "jshint-stylish": "~0.2.0"
     },
     "scripts": {
-        "readme": "readme"
-    }
+        "start": "node app.js",
+        "readme": "readme",
+        "test": "echo \"Error: for Time constraint Test wasnt written\" && exit 1"
+    },
+    "engines": {
+        "node": "6.8.0"
+    },
+    "author": "uyiosa-enabulele",
+    "license": "GPL-3.0"
+
 }
