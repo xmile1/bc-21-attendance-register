@@ -1,6 +1,6 @@
 # XAttend 0.0.1
 
-[![Code Issues](https://www.quantifiedcode.com/app/project/e9a4900cbc6d434c9bfd88860deb2389)]
+<A href="https://www.quantifiedcode.com/app/project/e9a4900cbc6d434c9bfd88860deb2389"><img src="https://www.quantifiedcode.com/api/v1/project/e9a4900cbc6d434c9bfd88860deb2389/badge.svg" alt="Code issues"/></A>
 
 ## Introduction
 *  **`XAttend`** is a nodeJS Powered Event Attendance Register.
