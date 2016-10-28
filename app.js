@@ -41,24 +41,16 @@ if (app.get('env') === 'development') {
 }
 
 
-// app.get('/*', function(req, res) {
-
-//   if (indexcontroller.isLoggedIn === false) {
-//     res.render('index', {
-//       status: "Please, You need to Login"
-//     })
-//   }
-
-// });
-
 app.post('/signup', function(req, res) {
   // res.send(indexcontroller.signup(req, res));
   res.render('index', {
     message: indexcontroller.signup(req, res)
   });
-  //attend
+
 });
 
+
+//This creates events and setts it as the current event
 app.post('/createevent', function(req, res) {
   console.log("got here");
   var theref = "events";
@@ -72,7 +64,7 @@ app.post('/createevent', function(req, res) {
     }
   };
 
-  //set current event
+  //set this as current event
   var theref2 = "setttings";
   var thekey2 = "currentEvent";
   var details2 = thekey;
@@ -84,7 +76,7 @@ app.post('/createevent', function(req, res) {
 
 });
 
-
+// will sign in to Admin if email is the admins email 
 app.post('/signin', function(req, res) {
   firebase.auth().onAuthStateChanged(function(user) {
 
@@ -101,12 +93,7 @@ app.post('/signin', function(req, res) {
       }
       // User is signed in.
     }
-    // else {
-    //   res.render('index', {
-    //     message: "Error, Please Try Again or Register"
-    //   });
-    //   // No user is signed in.
-    // }
+
   });
   var signMsg = indexcontroller.signin(xssFilters.inHTMLData(req.body.loginEmail), xssFilters.inHTMLData(req.body.loginPassword));
 
@@ -118,8 +105,6 @@ app.post('/signin', function(req, res) {
 
 
 
-  // res.render('index', {
-  //       message: indexcontroller.signin(req, res)});
 });
 
 

@@ -21,6 +21,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
+//create authentication account with firebase and add data to users dbase
 exports.signup = function(req, res) {
   if (req.body.password == req.body.confirmpassword) {
     firebase.auth().createUserWithEmailAndPassword(xssFilters.inHTMLData(req.body.email), xssFilters.inHTMLData(req.body.password)).catch(function(error) {
