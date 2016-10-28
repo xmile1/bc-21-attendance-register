@@ -1,6 +1,6 @@
 # XAttend 0.0.1
 
-[![Code Issues](https://www.quantifiedcode.com/api/v1/project/54a4decaa92b4d2483d7a1c3c42f79c0/badge.svg)](https://github.com/xmile1/bc-21-attendance-register/issues)
+[![Code Issues](https://www.quantifiedcode.com/app/project/e9a4900cbc6d434c9bfd88860deb2389)]
 
 ## Introduction
 *  **`XAttend`** is a nodeJS Powered Event Attendance Register.
