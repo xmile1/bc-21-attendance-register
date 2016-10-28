@@ -17,16 +17,16 @@
 ### Back End Dependencies
 
 *  This app's functionality depends on multiple NodeJS packages including;
-* **chart.js
-* **compression
-* **cookieparser
-* **errorhandler
-* **express
-* **jade
-* **morgan
-* **promise
-* **static-favicon
-* **xss-filters
+  * chart.js
+  * compression
+  * cookieparser
+  * errorhandler
+  * express
+  * jade
+  * morgan
+  * promise
+  * static-favicon
+  * xss-filters
 
 ## Front End Dependencies
 *  **[BootStrap CSS](http://getbootstrap.com/)** - The app's login and admin templates have been styled using this CSS framework
@@ -48,12 +48,12 @@
 *  Install the app's backend dependencies. For best results, using a [virtual environment]
   *  `npm install`
 * Run the app
-  *  `node app.py`
+  *  `node app.js`
   *  Running the command above will produce output that's similar to the sample below.
 
   ```
    Express server listening on port 3000
   ```
-
+  * visit http://localhost:3000
 ## Tests
 * no tests were perfomed due to time limitation
