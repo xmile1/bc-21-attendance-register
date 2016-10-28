@@ -74,8 +74,11 @@ exports.setAttendance = function() {
     console.log("got here")
     exports.signout;
   });
-  return function setit() {
-    return done;
+  // return function setit() {
+  //   return done;
+  // }
+  return {
+    message: "Your Registration has been logged"
   }
 };
 

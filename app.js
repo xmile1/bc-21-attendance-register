@@ -84,17 +84,18 @@ app.post('/signin', function(req, res) {
       if (indexcontroller.isAdmin()) {
         res.redirect('admin');
       } else {
-        indexcontroller.setAttendance()();
-        res.render('index', {
-          message: "Your Registration has been logged"
-        });
+
+        res.render('index', indexcontroller.setAttendance()
+
+        );
 
 
       }
       // User is signed in.
     } else {
-      // res.render('index', {
-      //   message: signinMsg});
+      res.render('index', {
+        message: "Error, Please Try Again or Register"
+      });
       // No user is signed in.
     }
   });
