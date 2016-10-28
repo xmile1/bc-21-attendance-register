@@ -83,7 +83,6 @@ $(document).ready(function() {
     $('#btn-view-report').click(function(e) {
         var users, theEvent;
         theEvent = $("#event-to-view").val();
-        alert(theEvent);
 
         $.getJSON("https://attendanceregister-64a7b.firebaseio.com/users.json", function(result) {
             users = result
@@ -162,9 +161,10 @@ function viewEvents(jsonEvents) {
     var sNo = 1;
 
     for (var eachEvent in jsonEvents) {
+        var noOfAttendees = String(Object.keys(jsonEvents[eachEvent].attendees).length - 1);
         var rowData = '<td>' + sNo++ + '</td>' + '<td>' + jsonEvents[eachEvent].eventTitle +
             '</td>' + '<td>' + jsonEvents[eachEvent].date + '</td>' + '<td>' +
-            jsonEvents[eachEvent].startTime + '</td>' + '<td>' + Object.keys(jsonEvents[eachEvent].attendees).length - 1 + '</td>';
+            jsonEvents[eachEvent].startTime + '</td>' + '<td>' + noOfAttendees + '</td>';
         $('#event-table > tbody:last-child').append('<tr>' + rowData + '<tr>')
     }
 

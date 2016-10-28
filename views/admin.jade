@@ -45,12 +45,14 @@ block content
         hr
         .row
           .row
-            .col-md-9 Event List
-            .col-md-3
+            .col-md-6 Event List
+            .col-md-6
               .row
                 form#login-form(action='/createnewevent', method='post', role='form', style='display: block;')
                   .form-group.col-md-4
                     button.btn.btn-primary(type='button', data-toggle='modal', data-target='#newEvent', style='display: block;') Create Event
+                .col-md-4
+                    button#viewgraph.btn.btn-primary(type='button', data-toggle='modal', data-target='#newEvent', style='display: block;') Create Event
           .panel.panel-primary.filterable
             .panel-heading
               h3.panel-title Users

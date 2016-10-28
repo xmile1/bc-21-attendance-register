@@ -1,2 +1,16 @@
-# bc-21-attendance-register
-A web application that logs users Attendance of an Event
+#attendance-app
+undefined
+
+##Install
+		npm install
+##Required Tools
+* chart.js
+* compression
+* cookieparser
+* errorhandler
+* express
+* jade
+* morgan
+* promise
+* static-favicon
+* xss-filters

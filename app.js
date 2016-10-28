@@ -15,6 +15,7 @@ var express = require('express'),
   routes = require('./routes'),
   firebase = require("firebase"),
   viewcontroller = require('./controllers/viewreport'),
+  xssFilters = require('xss-filters'),
   indexcontroller = require('./controllers/index');
 
 var app = express();
@@ -61,17 +62,22 @@ app.post('/signup', function(req, res) {
 app.post('/createevent', function(req, res) {
   console.log("got here");
   var theref = "events";
-  var thekey = req.body.eventShortCode;
+  var thekey = xssFilters.inHTMLData(req.body.eventShortCode);
   var details = {
-    eventTitle: req.body.eventTitle,
-    startTime: req.body.eventStartTime,
-    date: req.body.eventDate,
+    eventTitle: xssFilters.inHTMLData(req.body.eventTitle),
+    startTime: xssFilters.inHTMLData(req.body.eventStartTime),
+    date: xssFilters.inHTMLData(req.body.eventDate),
     attendees: {
       test: "20/03/2016"
     }
   };
 
-  // if (indexcontroller.create(theref, thekey, details) == true) {
+  //set current event
+  var theref2 = "setttings";
+  var thekey2 = "currentEvent";
+  var details2 = thekey;
+  indexcontroller.create(theref2, thekey2, details2);
+
   res.render('admin', indexcontroller.create(theref, thekey, details));
   // }
 
