@@ -55,6 +55,14 @@
    Express server listening on port 3000
   ```
   * visit http://localhost:3000
+
+## Troubleshooting install Error
+  *  if you encounter Failed to load c++ bson 
+```
+require('../build/Release/bson'); to
+bson = require('../browser_build/bson'); in node_modules/bson/ext/index.js
+```
+
   
 ## Tests
 * no tests were perfomed due to time limitation
