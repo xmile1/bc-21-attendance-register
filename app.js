@@ -66,7 +66,9 @@ app.post('/createevent', function(req, res) {
     eventTitle: req.body.eventTitle,
     startTime: req.body.eventStartTime,
     date: req.body.eventDate,
-    attendees: {}
+    attendees: {
+      test: "20/03/2016"
+    }
   };
 
   // if (indexcontroller.create(theref, thekey, details) == true) {
@@ -92,14 +94,23 @@ app.post('/signin', function(req, res) {
 
       }
       // User is signed in.
-    } else {
-      res.render('index', {
-        message: "Error, Please Try Again or Register"
-      });
-      // No user is signed in.
     }
+    // else {
+    //   res.render('index', {
+    //     message: "Error, Please Try Again or Register"
+    //   });
+    //   // No user is signed in.
+    // }
   });
   var signMsg = indexcontroller.signin(req.body.loginEmail, req.body.loginPassword);
+
+  setTimeout(function() {
+    res.render('index', {
+      message: "Error, Please Try Again or Register"
+    });
+  }, 10000);
+
+
 
   // res.render('index', {
   //       message: indexcontroller.signin(req, res)});

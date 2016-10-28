@@ -72,13 +72,13 @@ exports.setAttendance = function() {
     setPresent.child(key).set(String(d));
     done = "Your Attendance Has been Logged";
     console.log("got here")
-    exports.signout;
+    exports.signout();
   });
   // return function setit() {
   //   return done;
   // }
   return {
-    message: "Your Registration has been logged"
+    message: "Your Attendance has been logged"
   }
 };
 
@@ -89,6 +89,15 @@ exports.createnewevent = function(ref, object) {
     date: object.eventDate,
     startTime: object.eventStartTime
   });
+
+  var user = firebase.auth().currentUser;
+  var d = new Date().toISOString().slice(0, 10);
+  var key = user.email.split("@")[0];
+  var obj = {};
+
+  var reference = 'events/' + currentEvent + '/attendees';
+  var setPresent = firebase.database().ref(reference);
+  setPresent.child(key).set(String(d));
 };
 
 exports.isAdmin = function() {
@@ -134,8 +143,9 @@ exports.checkStatus = function(pos, neg, errorMessage) {
 
 exports.signout = function(req, res) {
   firebase.auth().signOut();
-  return ("You have been Signed Out");
   console.log("signedout");
+  return ("You have been Signed Out");
+
 };
 
 
